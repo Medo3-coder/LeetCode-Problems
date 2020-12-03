@@ -1,0 +1,107 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        
+        
+        //----------------hashmap two pass-------
+        
+          //key->   the value to be added in the current num 
+      //value-> pos
+        
+      unordered_map<int , int > m1   ;
+      vector <int> ans ; 
+        
+        for (int i = 0 ; i < nums.size() ; i++)
+        {
+            m1[nums[i]] = i;  //  like m1[2] = 0  &  m1[7] =1  in the array [2,7,11,15]
+        }
+        
+        // walk in the array again 
+        for (int i = 0 ; i < nums.size() ; i++)
+        {
+            int temp = target - nums[i] ;  // like 9 - 2 =  
+            
+            // look if the target in the map or not 
+             // second condition check  //الاندكش بتاع مش زي الاندكش اللي انا عايزة في الماب
+            if (m1.find(temp) !=m1.end() && m1[temp] != i )    
+            {
+                ans.push_back(i) ;  // 0 
+                
+                ans.push_back(m1[temp]);  // 0         // الاندكس هنجيبة من الماب بتاعت التمب 
+                  break ;            
+            }
+        }
+        return ans;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //---------------------hashmap onepass Approch---------- the best --------------------------------
+        
+          unordered_map<int , int > m;
+        vector  <int > ans(2) ; 
+      
+        
+        
+        for (int i = 0 ; i < nums.size() ; i++)
+        {
+            int temp = target - nums[i] ;   
+            if(m.find(temp) !=m.end() )       
+            {
+                
+                     ans[0]=m[temp] ;
+                     ans[1]= i ;
+                return ans;
+            }
+            m[nums[i]] = i ;
+        }
+            
+        return {};
+        
+        
+     }  
+        
+        
+        
+        
+        
+        //----------- brute force Approch--------------------
+        
+        
+        
+      /*   vector<int> d1 ;
+        for(int i = 0 ; i < nums.size() - 1 ; i++){
+            for(int j = i + 1  ; j < nums.size() ; j++){
+                if(nums[i] + nums[j] == target )
+                {
+                    d1.push_back(i);
+                    d1.push_back(j); 
+                }
+        }
+        }
+            
+        return d1 ;
+   }
+    
+    
+    */
+    
+    
+    
+    }    
+        
+        
+        
+};
+        
