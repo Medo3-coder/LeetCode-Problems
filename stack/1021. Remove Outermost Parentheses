@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string removeOuterParentheses(string S) {
+        
+  
+        int flag = 0 ; 
+        
+        string result ;
+        
+        for(int i = 0 ; i < S.size() ; i++)
+        {
+            if(S[i] =='(')
+            {
+                flag += 1 ;
+                
+                // we can do if statment like that  but it too slow 
+                if(flag > 1)
+                {
+                    result += "(";
+                }
+                    
+                else
+                {
+                    result +="";
+                }
+                     
+                // this faster 
+                //result += flag > 1 ? "(" : "" ; 
+               
+            
+                
+                
+            }
+            
+            if(S[i] == ')')
+            {
+                flag -= 1;
+                
+                result += flag > 0 ? ")" : "";
+            }
+        }
+        return  result ;
+    }
+};
