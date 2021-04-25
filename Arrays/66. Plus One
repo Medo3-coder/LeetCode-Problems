@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        
+      vector<int> res ;
+        int n = digits.size();
+        int sum = 1 ;
+        for(int i = n - 1 ; i >= 0 ; i--)
+        {
+            sum += digits[i];  // sum = sum + digits
+            
+            if(sum > 9)
+            {
+                res.push_back(sum % 10); // push sum % 10 = 0 
+                sum = sum / 10 ;              // to make sum still = 1 
+            }
+            else
+            {
+                res.push_back(sum); 
+                sum = 0 ;
+            }
+            
+        }
+        // this condition for example [9,9,9]
+        //the sum = 1 so push it back [0,0,0,1]
+        //and reverse the array [1,0,0,0]
+        
+        if(sum > 0)
+        
+            res.push_back(sum);
+            reverse(res.begin(),res.end());
+           
+          return res ;
+    }
+};
+
+
+
+
+
+
+
+//---------------------------------------------------------------
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Plus One.
+Memory Usage: 8.7 MB, less than 81.07% of C++ online submissions for Plus One.
