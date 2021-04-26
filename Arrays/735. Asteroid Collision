@@ -1,0 +1,51 @@
+
+//this solved using stack 
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        
+        stack<int> st;  
+
+
+        if(asteroids.size()  <= 1)
+        {
+            return asteroids;
+        }
+        
+        for(int asteroid  : asteroids)
+        {
+            if(asteroid > 0  )
+            {
+                // Pushing all +ve asteroids
+                st.push(asteroid);
+            }
+            else
+            {  // Remove all positive asteroids before our current asteroid
+                while(!st.empty() && st.top() > 0 && abs(st.top()) < abs(asteroid))
+                    st.pop();
+                // Checking if the stack is empty or the recent asteriod is negative!
+                if(st.empty() || st.top() < 0)
+                    st.push(asteroid);
+                 // If recent asteriod <= our asteriod, We broke our outer loop if equal we pop it.
+                else if(st.top() == abs(asteroid))
+                    st.pop();
+                
+            }
+                
+        }
+        
+        vector<int> result(st.size());
+        for(int i = st.size() - 1; i >= 0 ; i--) {
+            result[i] = st.top();
+            st.pop();
+        }
+
+                   
+      
+        return result ;
+
+          
+     }
+                       
+};
