@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+          // [-4 , -1 , -1 , 0 , 1 , 2 ] 
+        sort(nums.begin() , nums.end());
+        
+        //to carry the result 
+        vector<vector<int>> result ;
+        // this size of all array
+        int size = nums.size() ;   
+        // this size until third last element 
+        int M = (nums.size())-2;
+        
+        for(int i = 0 ; i < M ; i++)
+        {
+            if(i == 0 || (i > 0 && nums[i] != nums[i - 1]))
+            {
+                int low = i + 1 ;
+                int high = size - 1  ;
+                int sum = 0 - nums[i] ;
+                while(low < high)
+                {
+                    if(sum == nums[low] + nums[high])
+                    {
+                        vector<int> tmp ;
+                        tmp.push_back(nums[i]);
+                        tmp.push_back(nums[low]);
+                        tmp.push_back(nums[high]);
+                        result.push_back(tmp);
+                        
+                        while(low < high && nums[low] == nums[low + 1]){ low++; }
+                        while(low < high && nums[high] == nums[high - 1]){ high--;}
+                        
+                        low++ ;
+                        high--;
+                        
+                        
+                    }
+                    else if( nums[low] + nums[high] < sum ) 
+                     {   low++ ;}
+                    else
+                     {   high--;}
+                }
+            }
+        }
+        
+        return result;
+    }
+};
+
+//-----------------------------------------------------
+
+
+Runtime: 84 ms, faster than 57.99% of C++ online submissions for 3Sum.
+Memory Usage: 23.7 MB, less than 27.35% of C++ online submissions for 3Sum.
