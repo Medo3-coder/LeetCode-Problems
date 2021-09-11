@@ -1,0 +1,97 @@
+----------------------///// best solutions //---------------------
+
+Runtime: 3 ms, faster than 97.05% of C++ online submissions for Reverse Linked List.
+Memory Usage: 8.2 MB, less than 97.68% of C++ online submissions for Reverse Linked List.
+
+//-----------------------------------------------------------------------------
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        
+        if(head == NULL)
+            return head;
+        
+        ListNode* current, *prev, *next;
+        
+         prev = NULL;
+        
+        current = head ; 
+        
+
+        while(current !=NULL)
+        {
+            next = current-> next ;
+            current->next = prev ;
+            prev = current ; 
+            current = next ; 
+        }
+        
+        head = prev ;
+        
+        return head ; 
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------second solutions ---------------------------
+
+
+Runtime: 8 ms, faster than 61.56% of C++ online submissions for Reverse Linked List.
+Memory Usage: 8.2 MB, less than 97.68% of C++ online submissions for Reverse Linked List
+
+//-------------------------------------------------------------------
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        
+        //  1->null             2->3->4->5->NULL
+         ListNode* prev = NULL ; 
+        while(head != NULL)
+        {
+            
+            ListNode* next = head->next ;
+            head -> next = prev ;
+            prev = head ;  // redefine for prev 
+            head = next ; 
+            
+        }
+        return prev ; 
+        
+    }
+    //https://www.youtube.com/watch?v=D7y_hoT_YZI    
+    // check this link to understend 
+};
