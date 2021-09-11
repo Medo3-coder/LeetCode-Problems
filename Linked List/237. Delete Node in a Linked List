@@ -1,0 +1,33 @@
+
+
+
+Runtime: 12 ms, faster than 79.76% of C++ online submissions for Delete Node in a Linked List.
+Memory Usage: 7.6 MB, less than 38.86% of C++ online submissions for Delete Node in a Linked List.
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        
+         //node value is equal to node next val
+        node->val=node->next->val; 
+        
+        //now point next to next
+        node->next=node->next->next; 
+      
+        
+        
+        
+        
+    }
+};
