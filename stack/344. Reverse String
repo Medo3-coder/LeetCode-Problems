@@ -1,0 +1,78 @@
+/----------------------------------------------solution 1---------
+
+
+Runtime: 32 ms, faster than 17.98% of C++ online submissions for Reverse String.
+Memory Usage: 23.7 MB, less than 5.24% of C++ online submissions for Reverse String.
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        
+      // using stacks
+     stack<char> stk ;
+        
+     for(char i : s)
+     {
+         stk.push(i);
+     }
+        
+//Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
+        s.clear();  
+        
+        while(!stk.empty())
+        {
+            s.push_back(stk.top());
+            stk.pop();
+        }
+       
+        
+        
+    }
+};
+
+
+
+
+
+
+
+
+
+
+/----------------------------------------------solution 2---------
+
+
+
+
+
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        
+      
+        int left = 0 ;
+        int right = s.size() - 1 ;
+        
+      while(left < right)
+      {
+          swap(s[left] , s[right]);
+          left++;
+          right--;
+          
+      }
+        
+        
+    }
+};
+
+
+
