@@ -1,0 +1,73 @@
+//----------------solution 1 -------------------
+
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Valid Parentheses.
+Memory Usage: 6.2 MB, less than 79.49% of C++ online submissions for Valid Parentheses.
+
+
+
+
+
+/---------------------------------------------------------------------
+
+
+
+
+
+
+class Solution {
+public:
+    bool isValid(string s) {
+        
+        
+    
+    
+        stack<char> stk ;
+        
+        for(int i = 0 ; i < s.size() ; i++)
+        {
+            if(s[i] == '(' || s[i] == '{' || s[i] == '[')
+            {
+                stk.push(s[i]);
+            }
+        
+      else {
+                
+             if(s[i] == ')'  && !stk.empty() && stk.top() == '(')
+             {
+                  stk.pop();
+             }
+                
+            else if(s[i] == '}'  && !stk.empty() && stk.top() == '{')
+             {
+                  stk.pop();
+             }
+                
+            else if(s[i] == ']'  && !stk.empty() && stk.top() == '[')
+             {
+                  stk.pop();
+             }
+          
+           else{
+                    stk.push(s[i]);
+                }
+                
+                
+             }
+         
+         
+        }
+        
+        if(stk.empty())
+        {
+            return true ;
+        }
+
+        return false ;
+        
+        
+    }
+};
+
+
+// https://www.youtube.com/watch?v=wkDfsKijrZ8
