@@ -1,0 +1,72 @@
+
+
+
+//-----------------------Approach 1: Horizontal scanning  -------------------------------- 
+
+/*
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Longest Common Prefix.
+Memory Usage: 9.3 MB, less than 44.75% of C++ online submissions for Longest Common Prefix.
+
+*/
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        
+        
+        if(strs.size() == 0 )
+        {
+            return "";
+        }
+   
+        string prefix = strs[0];
+        
+        for(int i = 1 ; i < strs.size() ; i++)
+        {
+            while(strs[i].find(prefix) != 0)
+            {
+                prefix = prefix.substr(0 , prefix.size() - 1);
+                if(prefix.empty())
+                {
+                    return "";
+                }
+            }
+        }
+        
+            return prefix;
+        
+        
+    }
+};
+
+
+/*
+prefix = "flower";
+make loop her and matches
+["flow","flight"]
+*/
+
+
+https://www.youtube.com/watch?v=bl8ue-dTxgs
+
+
+/*
+Time complexity : O(S)O(S) , where S is the sum of all characters in all strings.
+
+In the worst case all nn strings are the same. The algorithm compares the string S1S1 with the other strings [S_2 \ldots S_n][S 
+2
+
+ …S 
+n
+
+ ] There are SS character comparisons, where SS is the sum of all characters in the input array.
+
+Space complexity : O(1)O(1). We only used constant extra space.
+
+*/
+
+
+//--------------------------------------------------------------------------
+
+
+
