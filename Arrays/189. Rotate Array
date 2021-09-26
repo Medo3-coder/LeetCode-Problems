@@ -1,0 +1,21 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        
+    //  because if u rotate the array n number of times you will get the same array. so to remove       //  unnecessary rotations k%=n is used. Here n is the size of array.
+      k = k % nums.size();
+          
+
+          if(k == 0) 
+              return ; 
+        
+        reverse(nums.begin() , nums.end());
+        reverse(nums.begin() , nums.begin() + k);
+        reverse(nums.begin() + k , nums.end());
+    }
+};
+
+
+//------------------------------------
+
+
