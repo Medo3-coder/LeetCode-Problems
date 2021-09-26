@@ -1,0 +1,114 @@
+
+soloutin 1     ----------------- in O(n)
+
+
+
+
+Runtime: 24 ms, faster than 93.98% of C++ online submissions for Squares of a Sorted Array.
+Memory Usage: 27 MB, less than 16.88% of C++ online submissions for Squares of a Sorted Array.
+
+//-------------------------------
+
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        
+          int left  = 0 ;
+          int right = nums.size() - 1 ;
+         
+          vector<int> ans;
+        
+        //until left pointr is less then or equal to right
+        while(left <= right)
+        {
+            
+            //if left pointer values's square is less then right pointer's value then
+            //we push in right pointer's value square
+            
+            if(abs(nums[left]) <= abs(nums[right]))
+            {
+                ans.push_back(nums[right]*nums[right]);
+                right -- ;
+            }
+            else if (abs(nums[left]) > abs(nums[right]))
+            {
+                ans.push_back(nums[left]*nums[left]);
+                left ++ ;
+            }
+            
+        }
+        
+        reverse(ans.begin() , ans.end());
+        
+       return ans;
+         
+      
+    }
+};
+
+
+
+
+
+
+
+
+
+
+----------------------------------------solution 2
+
+
+
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        
+        vector<int> squares ;
+        
+        for(int i = 0 ; i < nums.size() ; i++)
+        {
+            int square = pow(nums[i],2); 
+            squares.push_back(square);
+            
+        }
+        
+        sort(squares.begin(), squares.end());
+        return squares;
+    }
+};
+
+
+/--------------solution 3
+
+
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        
+           vector<int> ans;
+        
+    priority_queue<int ,vector<int>, greater<int>> temp ;
+        
+    // use greater<int> as the answer should be in increasing order
+        int n = nums.size();
+        
+        for(int i = 0 ; i < n ; i++)
+        {
+            // make all numbers squares
+            nums[i]*= nums[i];
+            //push in queue 
+            temp.push(nums[i]);
+        }
+        
+        for(int i = 0 ; i < n ; i++)
+        {
+            ans.push_back(temp.top());
+            temp.pop();
+        }
+        
+          return ans;
+    }
+};
