@@ -24,5 +24,5 @@ public:
 // T : O(n)
 // S : O(1)
 
-//Runtime: 16 ms, faster than 72.77% of C++ online submissions for Reverse Words in a String III.
-//Memory Usage: 9.8 MB, less than 47.55% of C++ online submissions for Reverse Words in a String III.
+Runtime: 12 ms, faster than 94.08% of C++ online submissions for Reverse Words in a String III.
+Memory Usage: 9.6 MB, less than 90.32% of C++ online submissions for Reverse Words in a String III.
