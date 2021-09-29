@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        int l = 0 ;
+        int r = 0 ; 
+        
+        while(l < s.size())
+        {
+            while(r < s.size() && s[r] != ' ')
+            {
+                r++ ;
+            }
+          
+            reverse(s.begin() + l , s.begin() + r);
+            l = r + 1 ;
+            r = l ;
+        }
+        return s ; 
+    }
+};
+
+
+// T : O(n)
+// S : O(1)
+
+//Runtime: 16 ms, faster than 72.77% of C++ online submissions for Reverse Words in a String III.
+//Memory Usage: 9.8 MB, less than 47.55% of C++ online submissions for Reverse Words in a String III.
