@@ -1,0 +1,56 @@
+
+
+
+
+
+
+/*
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Balanced Binary Tree.
+Memory Usage: 20.8 MB, less than 79.60% of C++ online submissions for Balanced Binary Tree.
+
+*/
+
+
+
+
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        
+        return DfsHeight(root) != -1; //if return -1 -> not balanced tree
+        
+      
+        
+    }
+    
+    
+    int DfsHeight(TreeNode* root)
+    {
+        //height is 0 for a null node
+        if(root == NULL) return 0 ;
+        
+        // calculate the left tree hight
+        int leftHeight = DfsHeight(root->left);
+        
+        //if height is -1 , tree is unbalanced
+        if(leftHeight == -1 ) return -1 ; 
+        
+         // calculate the right tree hight
+        int rightHeight = DfsHeight(root->right);
+        
+        //if height is -1 , tree is unbalanced
+        if(rightHeight == -1 ) return -1 ;
+        
+        //if diff more than 1 , the tree is unbalanced 
+        if(abs(leftHeight - rightHeight) > 1) return -1 ;
+        
+        //the subtree is balanced , return its max height
+        return max(leftHeight , rightHeight) + 1;
+    }
+    
+    // tc -> O(N)
+    // sc -> O(N)
+    
+    
+    
+};
