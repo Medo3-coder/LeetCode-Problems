@@ -77,7 +77,7 @@ public:
 
 /*
 Runtime: 0 ms, faster than 100.00% of C++ online submissions for Merge Sorted Array.
-Memory Usage: 9.1 MB, less than 28.73% of C++ online submissions for Merge Sorted Array.
+Memory Usage: 9.1 MB, less than 28.73% of C++ online submissions for Merge Sorted Array.   tc-> O(m + n) 
 
 */
 
