@@ -1,0 +1,61 @@
+Solution - 1 (Recursion)
+
+Time Complexity - O(2^N)
+Space Complexity - O(N)
+
+class Solution {
+public:
+	int fib(int N) {
+		if(N < 2){
+			return N;
+		}
+		return fib(N-1) + fib(N-2);
+	}
+};
+
+
+
+Solution - 2 (Dynamic Programming)
+
+Time Complexity - O(N)
+Space Complexity - O(N)
+
+class Solution {
+public:
+	int fib(int N) {
+		if(N < 2){
+			return N;
+		}
+		int dp[N + 1];
+		dp[0] = 0;
+		dp[1] = 1;
+		for(int i = 2; i <= N; i++){
+			dp[i] = dp[i - 1] + dp[i - 2];
+		}
+		return dp[N];
+	}
+};
+
+
+
+
+Solution - 3 (Using two variables)
+
+Time Complexity - O(N)
+Space Complexity - O(1)
+
+class Solution {
+public:
+	int fib(int N) {
+		if(N < 2){
+			return N;
+		}
+		int x = 0;
+		int y = 1;
+		for(int i = 2; i <= N; i++){
+			y = x + y;
+			x = y - x;
+		}
+		return y;
+	}
+};
