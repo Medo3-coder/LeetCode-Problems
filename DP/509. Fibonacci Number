@@ -69,3 +69,172 @@ public:
     }
       
 };
+
+//----------------------------------------------------------
+
+
+Solution - I (Recursion)
+
+Using the basic definition of Fibonacci numbers - F(n) = F(n - 1) + F(n - 2) and F(0) = 0, F(1) = 1
+
+int fib(int n) {
+	if(n <= 1) // base condition
+		return n;
+	return fib(n - 1) + fib(n - 2);
+	// or 1-liner:
+	// return n <= 1  ? n : fib(n - 1) + fib(n - 2);
+}
+Time Complexity : O(2^N). It can be calculated from the recurrence relation T(N) = T(N-1) + T(N-2). This is the most naive approach to calculate fibonacci number and recursion tree grows exponentially. There's a lot of repeated work that happens here.
+Space Complexity : ON), required for recursive call stack.
+
+Solution - II (Top-Down Recursive Approach - Dynamic Programming)
+
+Since the previous solution does a lot of repeated calculcations, we can optimize the approach by storing calculated results and returning them instead of recalculating them again and again.
+
+int memo[31] = {0};
+int fib(int n) {
+	if(n <= 1)
+		return n;
+	if(memo[n])
+		return memo[n];
+	return memo[n] = fib(n - 1) + fib(n - 2);
+	// or 1-liner:
+	// return memo[n] = memo[n] ? memo[n] : n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+Time Complexity : O(N), each fibonacci number is only calculated once.
+Space Complexity : O(N), required for memoization.
+
+Solution - III (Space-Optimized Top-Down Recursive Approach - Dynamic Programming)
+
+The space optimized version of above solution -
+
+int memo[2] = {0};
+int fib(int n) {
+	if(n <= 1)
+		return n;
+	if(memo[n & 1])
+		return memo[n & 1];
+	return memo[n & 1] = fib(n - 1) + fib(n - 2);
+	// or 1-liner:
+	// return memo[n % 2] = memo[n % 2] ? memo[n % 2] : n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+Solution - IV (Bottom-Up Iterative Approach - Dynamic Programming)
+
+The iterative version of solution II -
+
+int dp[31] = {0};
+int fib(int n) {
+	if(n <= 1)
+		return n;
+	dp[0] = 0, dp[1] = 1;
+	for(int i = 2; i <= n; i++)
+		dp[i] = dp[i - 1] + dp[i - 2];
+	return dp[n];
+}
+Time Complexity : O(N), each fibonacci number is only calculated once.
+Space Complexity : O(N), required for dp array.
+
+Solution - V (Space Optimized Bottom-Up Iterative Approach - Dynamic Programming)
+
+We can notice that we are only ever using dp[n - 1] and dp[n - 2]. So, we don't need to store all N fibonacci numbers in dp and only need to store the previous(prev1) and previous to the previous(prev2).
+
+int fib(int n) {
+	if(n <= 1)
+		return n;
+	int prev2 = 0, prev1 = 1, cur;
+	for(int i = 2; i <= n; i++)
+		cur = prev2 + prev1, prev2 = prev1, prev1 = cur;
+	return cur;
+}
+Time Complexity : O(N), each fibonacci number is only calculated once.
+Space Complexity : O(1), only constant space is being used.
+
+Solution - VI (Matrix Exponentiation)
+
+This approach uses a matrix M = [[1, 1], [1, 0]] and based on the observation that pow(M, n) gives us the fibonacci number n at M[0][0].
+
+int fib(int n) {
+	if(n <= 1) return n;
+	int M[2][2] = {{1, 1}, {1, 0}},
+		F[2][2] = {{1, 1}, {1, 0}};
+	for(int i = 2; i < n; i++)
+		matrixMul(F, M);
+	return F[0][0];
+}
+void matrixMul(int F[2][2], int M[2][2]){
+	int m00 = F[0][0] * M[0][0] + F[0][1] * M[1][0];
+	int m01 = F[0][0] * M[0][1] + F[0][1] * M[1][1];
+	int m10 = F[1][0] * M[0][0] + F[1][1] * M[1][0];
+	int m11 = F[1][0] * M[0][1] + F[1][1] * M[1][1];
+	F[0][0] = m00, F[0][1] = m01, F[1][0] = m10, F[1][1] = m11;
+}
+Time Complexity : O(N), we are doing N matrix multiplications.
+Space Complexity : O(1), only constant amount of space is used.
+
+Solution - VII (Optimized Matrix Exponentiation)
+
+This optimization is similar to optimization done in power functions using binary exponentiation.
+
+int F[2][2] = {{1, 1}, {1, 0}}, M[2][2] = {{1, 1}, {1, 0}};
+int fib(int n) {
+	if(n <= 1) return n;          
+	power(F, n - 1);
+	return F[0][0];
+}
+void power(int F[2][2], int n){
+	if(n <= 1) return;
+	power(F, n / 2);
+	matrixMul(F, F);
+	if(n & 1) 
+		matrixMul(F, M);   
+}
+void matrixMul(int F[2][2], int M[2][2]){
+	int m00 = F[0][0] * M[0][0] + F[0][1] * M[1][0];
+	int m01 = F[0][0] * M[0][1] + F[0][1] * M[1][1];
+	int m10 = F[1][0] * M[0][0] + F[1][1] * M[1][0];
+	int m11 = F[1][0] * M[0][1] + F[1][1] * M[1][1];
+	F[0][0] = m00, F[0][1] = m01, F[1][0] = m10, F[1][1] = m11;
+}
+Time Complexity : O(logN)
+Space Complexity : O(logN), considering recursive stack space.
+
+Solution - VIII (Another Recurrence Releation)
+
+This solution is based on followin recurrence releation (referred from GFG) -
+
+If n is even, then k = n / 2 and -
+
+fib(n) = fib(k) * [2 * fib(k - 1) + fib(k)]
+If n is odd, then k = (n + 1) / 2 and -
+
+fib(n) = fib(k) * fib(k) + fib(k - 1) * fib(k - 1)
+The implementation based on above releation is given below -
+
+int Fib[31] = {0};
+int fib(int n) {
+	if(n <= 1)
+		return Fib[n] = n;
+	if(Fib[n])
+		return Fib[n];
+	if(n & 1){
+        int k = (n + 1) / 2;
+        Fib[n] = fib(k) * fib(k) + fib(k - 1) * fib(k - 1);
+    }
+    else{
+        int k = n / 2;
+        Fib[n] = fib(k) * (2 * fib(k - 1) + fib(k));
+    }
+    return Fib[n];
+}
+Solution - IX (Using Golden Ratio)
+
+This approach will fail for higher values of n. For eg. The result given by below code for n = 71 is 308061521170129, while the correct answer is 308061521170130. So, this method will work well only for small values of n and is rarely used practically.
+
+int fib(int n) {
+	double goldenRatio = (1 + sqrt(5)) / 2;
+	return round(pow(goldenRatio, n) / sqrt(5));
+}
+Time Complexity : O(logN), some solutions have mentioned this time complexity as O(1) but I guess most pow functions require atleast O(logN) time complexity. The final result depends on implementation of underlying pow function & its complexity.
+Space Complexity : O(1)
+
+I have only enlisted most of the approaches to calculate fibonacci numbers with minimal explanation. There are many articles out there with detailed explanation on each approach which you can search more about.
