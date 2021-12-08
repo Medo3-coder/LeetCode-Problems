@@ -27,3 +27,73 @@ thus you final answer must be min(dp[n],dp[n-1]).
         }
         return min(cost[cost.size()-1],cost[cost.size()-2]);
     }
+
+
+
+
+////////////-----------------------------------
+
+
+❌ Solution - I (Brute-Force)
+
+We just do what the problem asks us. We can start either at 0th or 1st step and after that we have the choice to either climb one step or two steps.
+
+int minCostClimbingStairs(vector<int>& cost) {
+	return min(solve(cost, 0), solve(cost, 1));
+}
+int solve(vector<int>& cost, int i) {
+	if(i >= size(cost)) return 0; // reached end - no more cost required
+	// pay current cost and choose min(step+1, step+2) based on which takes us to end with minimum cost
+	return cost[i] + min(solve(cost, i + 1), solve(cost, i + 2)); 
+}
+Time Complexity : O(2^N)
+Space Complexity : O(N)
+
+✔️ Solution - II (Dynamic Programming - Memoization)
+
+The brute force solution leads to TLE because we are doing unnecessary re-calculations for the same steps multiple times. Instead, we can opt to store the calculated result for a given step and use it whenever required in the future instead of repeating the calculation.
+
+Here, I am using dp array where dp[i] will denote the minimum cost required to reach the end starting from the ith step. Each element of dp is initialised to 0 at the start and once we calculate the minimum cost to reach from ith step to the end, we will store it in dp[i] and use it in the future calculation of previous steps.
+
+int minCostClimbingStairs(vector<int>& cost) {
+	vector<int> dp(size(cost)); // dp[i] = cost to reach end from ith step 
+	return min(solve(cost, dp, 0), solve(cost, dp, 1));
+}
+int solve(vector<int>& cost, vector<int>& dp, int i) {
+	if(i >= size(cost)) return 0;
+	if(dp[i]) return dp[i];  // if already calculated, directly return stored minimum cost
+	return dp[i] = cost[i] + min(solve(cost, dp, i + 1), solve(cost, dp, i + 2)); // same as above, just store in dp[i] before returning
+}
+Time Complexity : O(N), where N is the number of steps. We will only be calculating minimum cost for each step once instead of recomputing it over and over as in brute force.
+Space Complexity : O(N), required for maintaining dp array.
+
+✔️ Solution - III (Dynamic Programming - Tabulation)
+
+We can also solve this iteratively. Here, we will start storing results from the start and make our way till the end (bottom-up).
+
+Again, We have choice to start at 0th or 1st step. Then, for each of the next steps, we could reach there either from the previous step or previous-to-previous step. Here, we will be using dp array where dp[i] will denote the minimum cost required to reach ith step starting from 0th or 1st step.Thus, we have the relation - dp[i] = cost[i] + min(dp[i - 1], dp[i - 2]). The cost[i] term won't be added in the nth step since we would already have reached the destination
+
+int minCostClimbingStairs(vector<int>& cost) {
+	int n = size(cost);
+	vector<int>dp(n + 1);
+	dp[0] = cost[0], dp[1] = cost[1];
+	for(int i = 2; i <= n; i++) 
+		dp[i] = (i != n ? cost[i] : 0) + min(dp[i - 1], dp[i - 2]);  // we can reach here from i-1th or i-2th step - choose minimum
+	return dp[n];
+}
+Time Complexity : O(N)
+Space Complexity : O(N)
+
+✔️ Solution - IV (Dynamic Programming - Constant Space)
+
+We can observe that we are only ever accessing the previous or previous-to-previous step. So, in the iterative version, we don't really need to store the whole dp array and we can just store the minimum cost required to reach the i-1th and i-2th steps.
+
+int minCostClimbingStairs(vector<int>& cost) {
+	// just store minimum cost to reach i-1th and i-2th step instead of whole array
+	int n = size(cost), prev = cost[1], prev2 = cost[0], cur = min(prev, prev2);
+	for(int i = 2; i <= n; i++) 
+		cur = (i != n ? cost[i] : 0) + min(prev, prev2), prev2 = prev, prev = cur; 
+	return cur;
+}
+Time Complexity : O(N)
+Space Complexity : O(1)
