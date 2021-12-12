@@ -1,0 +1,86 @@
+
+// ------------------------- solution 1 
+
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+  
+        int result = 0 ; 
+        for(int i : nums)
+        {
+            result ^= i;
+        }
+    
+         return result; 
+    }
+};
+
+/*
+How does it work?
+for example, we have input vector {4,1,2,1,2}
+res = 0, next element = 4
+res = 000 ^ 100 = 100
+
+res = 4, next element = 1
+res = 100 ^ 001 = 101
+
+res = 5, next element = 2
+res = 101 ^ 010 = 111
+
+res = 7, next element = 1
+res = 111 ^ 001 = 110
+
+res = 6, next element = 2
+res = 110 ^ 010 = 100
+
+finally res = 4, as expected =)
+*/
+
+
+
+
+//---------------------------------------------------------
+
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+       //#1 way  -----------------------------------------------------------
+      /** sort(nums.begin(),nums.end());
+       
+        for(int i=0;i<nums.size()-1;i=i+2)
+        {
+            if(nums[i]!=nums[i+1])
+                return nums[i];
+        }
+        return nums[nums.size()-1];
+       **/
+        
+        // #2 way using XOR ~ Bit Manipulation------------------------------------------------------
+        /** XOR of all the elements of the array(Since we know that XOR an element with            itself is zero. So the XOR of repeated nums will be zero and we will get only            the element which occurs once as the result) 
+        
+        int res = 0;
+        for(int itr : nums)
+            res ^= itr;
+        return res;
+      **/
+        
+        // #3 way ~ map---------------------------------------------------
+        /**The keys in map represent the integers present in the input vector and the values for these keys are a counter. Thus after processing, whichever key has value of 1 means count of 1, and return this key.**/
+        
+        unordered_map<int,int> intMap;
+        
+        for(int i = 0; i < nums.size(); ++i){
+            intMap[nums[i]]++;
+        }
+        
+        for(auto it : intMap){
+            if(it.second == 1){ // key is 1 then it means it has one element 
+                return it.first;
+            }
+        }
+        
+        return -1;
+    }
+};
