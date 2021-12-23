@@ -1,0 +1,82 @@
+//---------solution 1 
+
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) {
+        
+        int count = 0 ; 
+        int n = jewels.size();
+        int m = stones.size();
+        
+        for(int i = 0 ; i < n ; i++)
+        {
+            for(int j = 0 ; j < m ; j++)
+            {
+                if(jewels[i] == stones[j] )
+                {
+                    count++;
+                }
+            }
+        }
+        return count ; 
+    }
+};
+
+
+
+//---------solution 2 using map
+
+
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) {
+
+        
+        map<char,int> mp ;
+        int n=jewels.size();
+        int m=stones.size();
+        
+        for(int i=0 ; i < n ; i++)
+        {
+            mp[jewels[i]] = 1 ;
+        }
+        
+         int total=0;
+        
+        for(int i = 0 ; i < m ; i++)
+        {
+            total += mp[stones[i]]; //send char as key
+        }
+        
+        return total;
+    }
+    
+    
+   
+};
+
+
+//-------solution 3  using set 
+
+
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) {
+        
+        unordered_set<char> n(jewels.begin() , jewels.end());
+        
+        int count = 0 ; 
+        
+        for(int i = 0 ; i <stones.size() ; i++)
+        {
+            if(n.count(stones[i]) !=0)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+};
+
+
+
