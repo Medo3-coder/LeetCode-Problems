@@ -1,0 +1,64 @@
+
+//----------------solution 1 ----- basic using 1 node 
+
+
+
+
+
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        
+        ListNode* current = head ;
+        
+        while (current != NULL  && current->next !=NULL)
+        {
+           
+            if (current->next->val == current->val)
+            {
+                current->next = current->next->next;
+            }
+            
+            else
+            {
+                   current = current->next ;
+            }
+         
+        }
+        return head ;
+    }
+};
+
+
+
+
+
+// --------------- solution 2----------------------- using 2 nodes 
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        
+
+        
+        ListNode* currentNode = head ;
+        
+        while(currentNode && currentNode->next)
+        {
+            ListNode* nextNode = currentNode->next ;
+                
+            if(currentNode->val == nextNode->val)
+            {
+                currentNode->next = nextNode->next;
+                                  //current->next->next;
+            }
+            else
+            {
+                currentNode = nextNode ;
+            }
+        }
+        return head;
+        
+    }
+};
