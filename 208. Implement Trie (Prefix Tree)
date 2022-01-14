@@ -1,0 +1,104 @@
+struct Node {
+    
+    Node *links[26];
+    bool flag = false ;
+    
+    bool containKey(char ch)
+    {
+        return (links[ch - 'a'] != NULL);    // a = 0  , b = 1 , c = 2 .........
+    }
+    
+    void put(char ch , Node *node)    //create new refernce node 
+    {
+         links[ch - 'a'] = node ; // pass a and create new trie 
+    }
+    
+    Node *get(char ch)
+    {
+        return links[ch - 'a'] ;  // where is this point to
+    }
+    
+    void setEnd()
+    {
+        flag = true ;
+    }
+    
+    bool isEnd()
+    {
+        return flag ;
+    }
+    
+    
+};
+
+class Trie {
+    private : Node *root ;
+public:
+    Trie() {
+        root = new Node();
+    }
+    
+    void insert(string word) {    //tc -> O(length of the word)
+        
+        Node *node = root;          // initial node standing on the root 
+         
+            for(int i = 0 ; i < word.size() ; i++)
+            {
+                if(!node->containKey(word[i]))
+                {
+                    //create new refernce node 
+                    node->put(word[i] , new Node());
+                }
+                
+                //move to refernce node 
+               node = node->get(word[i]);
+            }
+        
+        node->setEnd(); //there is word that exist // flag = true 
+        
+    }
+    
+    bool search(string word) {
+        
+        Node *node = root ;         // initial dummy node stand on the root
+        for(int i = 0 ; i < word.size() ; i++)
+        {
+            if(!node->containKey(word[i]))
+            {
+                return false ;
+            }
+            
+            node = node->get(word[i]);  // get me that and move across
+        }
+        
+        if(node->isEnd() == true)
+        {
+            return true ;
+        }
+        return false ;
+        
+        
+        /*
+        return node->isEnd();    // is true or not 
+        */
+        
+    }
+    
+    bool startsWith(string prefix) {
+        
+        Node *node = root ;
+        
+        for(int i = 0 ; i < prefix.size() ; i++)
+        {
+            if(!node->containKey(prefix[i]))
+            {
+                return false ; 
+            }
+            
+            node = node->get(prefix[i]); // move ... move
+        }
+        
+         return true;    // is true or not 
+        
+    }
+};
