@@ -49,29 +49,38 @@ public:
         
         //---------------------hashmap onepass Approch---------- the best --------------------------------
         
-          unordered_map<int , int > m;
-        vector  <int > ans(2) ; 
-      
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
         
+        unordered_map<int , int> hashmap;
         
-        for (int i = 0 ; i < nums.size() ; i++)
+         //loop for checking if the complement of the current integer exist in the map
+        
+        for(int i = 0 ; i < nums.size() ; i++)
         {
-            int temp = target - nums[i] ;   
-            if(m.find(temp) !=m.end() )       
-            {
-                
-                     ans[0]=m[temp] ;
-                     ans[1]= i ;
-                return ans;
-            }
-            m[nums[i]] = i ;
-        }
+             //if complement has found, return current index and index of compliment
+            //index of complement is its value in the map
+			//with C++20, mappy.contains would probably been better
             
+         if(hashmap.count(target-nums[i])){
+             
+    //return the index of the current integer in the vector , and the index of the complement 
+             
+             return {i , (hashmap[target - nums[i]])};
+         }
+            
+//if complement has not been passed by yet, modify the complement's value with its index
+            
+            hashmap[nums[i]]= i ;
+        }
+        
+          //return empty vector if no integers answer found
+        
         return {};
         
-        
-     }  
-        
+    }
+};
         
         
         
@@ -79,29 +88,29 @@ public:
         //----------- brute force Approch--------------------
         
         
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
         
-      /*   vector<int> d1 ;
-        for(int i = 0 ; i < nums.size() - 1 ; i++){
-            for(int j = i + 1  ; j < nums.size() ; j++){
-                if(nums[i] + nums[j] == target )
+        vector<int>res ; 
+        
+        for(int i = 0 ; i < nums.size()-1 ; i++)
+        {
+            for(int j = i+1 ; j < nums.size() ; j++)
+            {
+                if(nums[i] + nums[j] == target)
                 {
-                    d1.push_back(i);
-                    d1.push_back(j); 
+                    res.push_back(i);
+                    res.push_back(j);
+               
                 }
+                
+               
+                
+            }
         }
-        }
-            
-        return d1 ;
-   }
-    
-    
-    */
-    
-    
-    
-    }    
         
-        
-        
+        return res;
+    }
 };
         
