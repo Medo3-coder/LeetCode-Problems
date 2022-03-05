@@ -1,0 +1,93 @@
+// -------------- sol 1 single hash
+
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        
+        if(s == t)
+        {
+            return true ;
+        }
+        if(s.size() != t.size())
+        {
+            return false ;
+        }
+        unordered_map<char , int> hash ;
+        
+        for(int i = 0 ; i < s.size() ; i++)
+        {
+             hash[s[i]]++;
+             hash[t[i]]--;   // decrement each i to 0
+         }
+        
+        for(auto it : hash)
+        {
+            if(it.second)
+            {
+                return false ;
+            }
+        }
+        
+        return true ;
+    }
+};
+
+
+  //https://www.youtube.com/watch?v=QZmh8-Auqo8
+
+// Time Complexity: O (n)
+// Space Complexity: O(n)
+
+
+
+//--------------------------------------------sorting   Time Complexity: O(nLogn)
+
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        int m = s.length() ;
+        int l = t.length() ;
+        
+        if( m != l )
+        {
+            return false ;
+        }
+        
+        sort(s.begin() , s.end());
+        sort(t.begin() , t.end());
+        
+        
+    for(int i = 0 ; i < s.size() ; i++)
+    {
+        if(s[i] != t[i])
+        {
+            return false ;
+        }
+    }
+        
+        return true ;
+        
+        
+    }
+};
+
+
+//-----------------------------2 hashes 
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.size() != t.size()) return false;
+        unordered_map<char, int> s_map, t_map;
+        for (int i=0; i<s.size(); i++)
+        {
+            s_map[s[i]]++;
+            t_map[t[i]]++;
+        }
+        return s_map == t_map;
+    }
+};
