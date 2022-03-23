@@ -1,3 +1,7 @@
+https://www.youtube.com/watch?v=P1Ic85RarKY&list=PLot-Xpze53lfQmTEztbgdp8ALEoydvnRQ&index=8
+
+
+
 The way to think about the solution is that we will have to do a reverse sorting.
 We initialize k=m+n-1 as that will be the last location of nums1.
 We will keep checking for the greater element of the two arrays(i=m-1,j=n-1) and insert the values.
