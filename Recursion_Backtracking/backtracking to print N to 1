@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+
+void print(int i, int N)
+{
+    if(i > N)
+    {
+        return;
+    }
+     
+    print(i + 1, N);
+     cout << i <<" ";
+     
+     // to do backtracking put the print line after the function call 
+  
+}
+
+int main()
+{
+    print(1, 3);
+    return 0;
+}
