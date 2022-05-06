@@ -1,0 +1,36 @@
+//-------------------
+Time complexity = solution runs in O(N) TC Where N is the size of array
+
+Space Complexity = Algorithm uses a constant extra space O(1)
+
+//--------------------
+
+
+
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        /* handle empty array */
+        if(nums.size() == 0 )
+        {
+            return 0 ;
+        }
+        
+        int  left = 0 ;
+        int right = 1 ;
+        
+        for(right  ; right < nums.size() ; right++)
+        {
+            if(nums[left] != nums[right])
+            {
+                left++ ;
+                nums[left] = nums[right];
+            }
+        }
+        
+        return left + 1 ;
+        
+    }
+};
