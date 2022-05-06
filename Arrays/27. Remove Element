@@ -1,0 +1,38 @@
+
+
+
+/*******************
+
+Time Complexity : O(N)
+this solution runs in O(N) time Where N is the Size Of the Array 
+
+Space Complexity: O(1)
+This Alogrithm uses a constant Extra Space 
+/**************
+
+
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        
+        if(nums.size() == 0 )
+        {
+            return 0 ;
+        }
+            
+        int count = 0 ;  // to calc the length
+        
+        for(int i = 0 ; i < nums.size() ; i++ )
+        {
+            if(nums[i] != val)
+            {
+                
+               nums[count++] = nums[i];
+            }
+        }
+        
+        return count ;  
+        
+    }
+};
