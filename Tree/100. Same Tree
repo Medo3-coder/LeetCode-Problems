@@ -1,0 +1,51 @@
+/*
+Time Complexity : O(N)
+
+this is a recursive approach which is executed for each node in the first and second trees
+the TC-> O(N1)+ O(N2) = O(N) where N1 and N2 are number of nodes in the first and second trees
+respectively
+
+/----------------------------------
+
+Space Complexity : O(N)
+
+the space complexity is O(1) for each execution of the method , Since we call 
+the method recursively , the space complexity O(N)
+ 
+*/
+
+
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        
+        // if both node are NULL , the trees are same
+        if( p == NULL && q == NULL)
+        {
+            return true ;
+        }
+        
+        /*if one of node is null , but other node is not null then trees are not thr same*/
+        if(p == NULL || q == NULL)
+        {
+           return false ;
+        }
+        
+         /* if values are different , return false */
+        if(p->val != q->val)
+        {
+            return false ;
+        }
+        
+        /* if values are execute recursively */
+        return isSameTree(p->left , q->left)
+            && isSameTree(q->right , p->right);
+    }
+};
+
+
+
+
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Same Tree.
+Memory Usage: 10 MB, less than 45.50% of C++ online submissions for Same Tree.
