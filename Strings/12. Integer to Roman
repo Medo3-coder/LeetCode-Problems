@@ -1,0 +1,93 @@
+// 
+
+TC -> O(1)
+
+SC -> O(1)  algorithm using constant extra space 
+
+//---------------------------------
+
+//--------------------------sol - 1 //----------------
+
+
+class Solution {
+    
+public:
+    string intToRoman(int num) {
+        
+        
+        int integer[13] = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+ 
+        string roman[13]  = {"M","CM","D","CD","C","XC","L","XL","X" ,"IX","V","IV","I"};
+        string res = "";
+        
+        for(int i = 0 ; i < 13; i++)
+        {
+            while(num >= integer[i])
+            {
+                res += roman[i];
+                num-=integer[i];
+            }
+        }
+        
+        return res;
+    }
+};
+
+
+Runtime: 3 ms, faster than 93.81% of C++ online submissions for Integer to Roman.
+Memory Usage: 5.8 MB, less than 92.39% of C++ online submissions for Integer to Roman.
+
+
+
+//-----------------------------------------------2nd soloution-------------------
+
+
+
+tc -> o(n)
+
+
+class Solution {
+        
+private:
+    const vector<pair<int, char*>> conv = {{1000, "M"},
+                                            {900, "CM"},
+                                            {500, "D"},
+                                            {400, "CD"},
+                                            {100, "C"},
+                                            {90, "XC"},
+                                            {50, "L"},
+                                            {40, "XL"},
+                                            {10, "X"},
+                                            {9, "IX"},
+                                            {5, "V"},
+                                            {4, "IV"},
+                                            {1, "I"}};
+    
+public:
+    string intToRoman(int num) {
+        
+        string res;
+        
+        auto it = conv.begin();
+        
+    while(num > 0  && it != conv.end())
+    {
+        if(num >= it->first)
+        {
+            num -= it->first;
+            res += it->second;
+        }
+        else
+        {
+            it++;
+        }
+    }
+        
+        return res;
+    }
+};
+
+
+Runtime: 12 ms, faster than 48.64% of C++ online submissions for Integer to Roman.
+Memory Usage: 7.5 MB, less than 34.96% of C++ online submissions for Integer to Roman.
+
