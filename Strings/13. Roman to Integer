@@ -58,7 +58,7 @@ public:
     }
 };
 
-///////////////////------------------------------------------second solutions ---------------------------------
+///////////////////------------------------------------------second solutions -------------------- hashMap-------------
 
 
 
@@ -69,44 +69,86 @@ class Solution {
 public:
     int romanToInt(string s) {
         
-        //edge case 
-       
-        if(s.size()== NULL)
-            return 0 ; 
-        
-        
-        // store Key and Value in Hash Map
-        
- unordered_map<char , int> mp ={{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D',500},{'M',1000}};
-        
-      int   ans = mp[ s.at(s.size()-1) ];
-        
-        
-        /// run loop from left to right 
-        
-        for(int i = s.size() - 2 ; i >= 0 ; i--)
-        {
-               
-        char c1 = s.at(i);
-        char c2 = s.at(i+1);
-        
-        if(mp[c1] < mp[c2])
-        {
-            ans = ans - mp[c1];
+        unordered_map<char , int> mp {
             
-        }
-        else
-        {
-            ans = ans + mp[c1];
-        }
+            {'I' , 1}  ,
+            {'V' , 5}  ,
+            {'X' , 10} ,
+            {'L' , 50} ,
+            {'C' , 100},
+            {'D' , 500},
+            {'M', 1000},
             
+        };
+        
+        int result = 0 ;
+        
+        for( int i = 0 ; i < s.size() ; i++)
+        {
+            if(mp[s[i]] < mp[s[i + 1]])
+            {
+                result -= mp[s[i]];
+            }
+            else
+            {
+                result += mp[s[i]];
+            }
         }
-     
         
+        return result;
         
-        return ans ; 
     }
 };
 
 
 https://www.youtube.com/watch?v=Xy1dfcg7P-Y
+
+
+
+//----------------------------------------------------- 3rd soloution         -----------------
+
+
+
+
+class Solution {
+    
+private : 
+    
+    int fun(char a)
+        {
+            if( a == 'I' ) return 1 ;
+            if( a == 'V' ) return 5 ;
+            if( a == 'X' ) return 10 ;
+            if( a == 'L' ) return 50 ;
+            if( a == 'C' ) return 100 ;
+            if( a == 'D' ) return 500 ;
+            if( a == 'M' ) return 1000 ;
+        
+        return 0;
+        };
+    
+    
+public:
+    
+    int romanToInt(string s) {
+        
+         int result = 0 ;
+        
+         int size = s.size();
+        
+        for( int i = 0 ; i < size ; i++)
+        {
+            if(i < size - 1 && fun(s[i]) < fun(s[i + 1]))
+            {
+                result -= fun(s[i]);
+            }
+            else
+            {
+                result += fun(s[i]);
+            }
+        }
+        
+        return result;
+        
+    }
+};
