@@ -54,3 +54,57 @@ public:
     
     
 };
+
+
+//-------------------------------2nd  solution-----
+
+
+
+class Solution {
+    
+private: 
+     int unbalanced = -1 ;
+    
+    int absHeight(TreeNode *root)
+    {
+        //height is 0 for null node
+        if(root == NULL)
+        {
+            return 0 ;
+        }
+        //leaf Node
+        if(root->left == NULL && root->right == NULL)
+        {
+            return 1;
+        }
+        
+        int left = absHeight(root->left);
+        
+        if(left == unbalanced)
+        {
+            return unbalanced;
+        }
+        
+        int right = absHeight(root->right);
+        
+        if(right == unbalanced)
+        {
+            return unbalanced;
+        }
+        
+        if(abs(left - right) > 1)
+        {
+            return unbalanced ;
+        }
+        
+        return max(left , right) + 1;
+    
+    }
+    
+public:
+    bool isBalanced(TreeNode* root) {
+        return absHeight(root) != -1 ;
+        
+    }
+  
+};
