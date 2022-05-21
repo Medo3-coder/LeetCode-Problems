@@ -28,3 +28,36 @@ medo
 medo
 medo
 medo
+
+//---------------------------------------------------------
+
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+void rec(int i , int n)
+{
+    if(i > n)
+    {
+       return;
+    }
+    else
+    {
+        cout<<"medo"<<endl;
+        rec(i + 1 , n); 
+    }
+   
+}
+
+
+int main() {
+   
+   int n  ;
+    cout<<"Enter 1 number"<<endl;
+   cin>>n;      //enter the value of n in counsole
+
+   
+   rec(1 , n);
+
+    return 0;
+}
