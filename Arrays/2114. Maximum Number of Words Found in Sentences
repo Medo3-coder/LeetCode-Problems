@@ -1,0 +1,61 @@
+
+/////--------------------- sol 1 
+
+tc-> O(n^2)   brute force 
+
+
+class Solution {
+public:
+    int mostWordsFound(vector<string>& sentences) {
+        
+       int maxx=INT_MIN;
+       int count = 0 ;
+        for(int i = 0 ; i < sentences.size() ; i++)
+        {
+           
+            for(int j = 0 ; j < sentences[i].size() ; j++)
+            {
+                if(sentences[i][j] == ' ')   // number of sapaces = number of words
+                    count++ ;
+            }
+            
+            maxx = max(maxx , count);
+            count = 0 ;
+        }
+        
+        return maxx + 1 ;
+    }
+};
+
+//-----------------------sol 2 
+
+class Solution {
+public:
+    
+    int check(string s)
+    {
+        int total = 0 ;
+        s.push_back(' ');
+        int n = s.size();
+        for(int i = 0 ; i < n ; i++)
+        {
+            if(s[i] == ' ')
+                total++;
+        }
+        return total;
+    }
+    
+    
+    
+    int mostWordsFound(vector<string>& sentences) {
+         
+        int maxi = 0 ;
+        for(auto i :sentences )
+        {
+            maxi = max(maxi , check(i));
+        }
+        
+        return maxi;
+  
+    }
+};
