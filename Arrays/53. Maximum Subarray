@@ -1,26 +1,41 @@
+Approach 1 - TC: O(n3) TLE
+Run three loops, get all possible subarrays in two loops and their sum in another loop, then return the maximum of them.
+//-----------------------------------------------------
+
+Approach 2- TC: O(n2)
+If we optimise the above approach, we can get sum of all possible subarrays in two loops only, then return the maximum so far.
+
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+        int max_sum = INT_MIN;
         
-        int MAX = INT_MIN ;
-        int sum = 0 ; 
-        
-        int n = nums.size() ;
-        
-        for(int i = 0 ; i < n ; i++)
-        {
-            sum += nums[i];
-            MAX = max(sum , MAX);
-            
-            if(sum < 0)     sum = 0 ; 
-            
-            
+        for(int i=0; i<nums.size(); i++){
+            int curr_sum = 0;
+            for(int j=i; j<nums.size(); j++){
+                curr_sum += nums[j];
+                //cout<<curr_sum<<endl;
+                max_sum = max(max_sum, curr_sum);
+            }
         }
-        
+    return max_sum;
+    }
+};
+
+//-----------------------------------------------------
+Approach 3 Kadane Algorithm - TC: O(n)
+Using this approach we can get the maximum sum of subarray in just O(n) time complexity.
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int MAX = INT_MIN;
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            MAX = max(sum, MAX);
+            if(sum < 0) sum = 0;
+        }
         return MAX;
-        
-        //tc -> O(N)
-        //sc -> O(1)
-        
     }
 };
