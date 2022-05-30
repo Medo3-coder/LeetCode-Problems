@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int finalValueAfterOperations(vector<string>& operations) {
+        
+        int res = 0 ; 
+        for(int i = 0 ; i < operations.size() ; i++)
+        {
+          (operations[i][1] == '+' ) ? res++ : res--;
+            
+          
+        }
+        
+        return res;
+    }
+};
+
+//------------------------
+
+
+
+class Solution {
+public:
+    int finalValueAfterOperations(vector<string>& operations) {
+        
+        int res = 0 ; 
+        for(auto op : operations)
+            
+            res = op[1] == '-' ? res-1 : res+1 ;
+        
+        return res;
+    }
+};
