@@ -51,3 +51,20 @@ public:
 
 Runtime: 4 ms, faster than 88.22% of C++ online submissions for Intersection of Two Arrays II.
 Memory Usage: 10.5 MB, less than 42.48% of C++ online submissions for Intersection of Two Arrays II.
+
+
+
+/*
+
+
+
+/*
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2,2]
+
+For this input you want to insert the 2 twice in your output vector and not just once so you
+subtract the 2's key's value using freq[nums2[i]]-- once and then next time again when you find it still >0 you add it once again to the output vector.
+
+*/
+
+*/
