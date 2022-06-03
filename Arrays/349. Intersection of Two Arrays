@@ -1,0 +1,82 @@
+// using set -------------------------------------
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+      // put the values in set to remove duplicate
+        set<int>s1,s2;
+        
+        vector<int>out;
+        
+        for(auto val:nums1)
+            
+            s1.insert(val);
+        
+        for(auto val:nums2)
+            
+            s2.insert(val);
+        
+        
+        //find if we can get the value from first set in second set
+        for(auto val:s1)
+        {
+           if(s2.find(val)!=s2.end()) 
+               //if found push it into output vector
+               out.push_back(val);
+        }
+        return out;
+    }
+};
+
+
+//------------------------------------------------- using two pointers 
+
+
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        
+        sort(nums1.begin() , nums1.end());
+        sort(nums2.begin() , nums2.end());
+        int i = 0 ;
+        int j = 0 ;
+        vector<int> result ;
+        
+        while(i < nums1.size() && j < nums2.size())
+        {
+             if(nums1[i] > nums2[j])
+            {
+                j++;
+            }
+            else if(nums1[i] < nums2[j])
+            {
+                i++;
+            }
+            else
+            {
+                if(!count(result.begin() , result.end() , nums1[i]))
+                {
+                    result.push_back(nums1[i]);     
+                }
+                
+                i++;
+                j++;
+            }
+        }
+        
+        return result ;
+    }
+};
+
+
+/*
+
+cout << count(vec.begin(), vec.end(), 1); 
+// 3 is printed as 1 occurs thrice in the vector
+
+
+
+C++ set count() function is used to return the number of elements found in the container. Since, the set container does not contain any duplicate element, this function actually returns 1 if the element with value val is present in the set container or 0 otherwise.
+
+*/
