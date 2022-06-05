@@ -1,0 +1,84 @@
+/*********************************** sol 1
+
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        int rows = mat.size();
+        int columns = mat[0].size();
+        
+        if((rows * columns) != r * c)
+        {
+             return mat;     // 2 * 2 = 1 * 4 
+        }
+        
+        vector<vector<int>> ans (r , vector<int>(c));
+        int row_num = 0 ;
+        int column_num = 0;
+            
+            for( int i = 0 ; i < rows ; i++)
+            {
+                for(int j = 0 ; j < columns ; j++)
+                {
+                    ans[row_num][column_num] = mat[i][j];
+                    column_num++ ;
+                    if(column_num == c)
+                    {
+                        column_num = 0 ;
+                        row_num++;
+                    }
+                }
+            }
+        return ans ;
+    }
+};
+
+
+/*
+it it doesn't make any sense like you
+you have to fill the count rows hold 
+columns but columns don't hold rows
+that's
+*/
+
+
+//------------------------------------------ solo 2
+
+
+
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        
+        int rows = mat.size();
+        int columns = mat[0].size();
+        int col_num = 0 ;
+        
+        if((rows * columns ) != r * c)
+        {
+            return mat ;
+        }
+        
+        vector<vector<int>> result ;
+        vector<int> temp ;
+        
+        for(int i = 0 ; i < rows ; i++)
+        {
+            for( int j = 0 ; j < columns ; j++)
+            {
+                temp.push_back(mat[i][j]);
+                col_num++;
+                if(col_num == c)
+                {
+                    col_num = 0 ;
+                    result.push_back(temp);
+                      temp.clear();  
+                    
+                }
+            }
+        }
+        
+        return result ;
+            
+        
+    }
+};
