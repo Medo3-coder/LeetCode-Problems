@@ -67,45 +67,41 @@ class Solution {
 public:
     bool isAnagram(string s, string t) {
         
-      if (s.empty() && t.empty())
-      {
-          return true ;
-      }
-        int n = s.length() ;
+        if(s == t)
+        {
+            return true ;
+        }
         
-        if(n != t.length()){
+        if(s.size() != t.size())
+        {
             return false ;
         }
+    
+          int umap[26]={};
         
-        
-       vector<int> anagramS(26,0);
-       vector<int> anagramT(26,0);
-        
-        // walking in all string 
-        
-        for(int i = 0 ; i < n ; i++ )
+        for(int i = 0 ; i < s.size() ; i++)
         {
-            anagramS[s[i] -'a']++ ;
-            anagramT[t[i] -'a']++ ; 
-            
+            umap[s[i] - 'a']++;   //  c - a = 2 - 0 = 2  like this 
+            umap[t[i] - 'a']--;
         }
         
-        // walking in the frequancy vector 
-        
-        for (int i = 0 ; i < 26 ; i++){
-            if(anagramS[i] != anagramT[i])
+        for(int i = 0 ; i < 26 ; i++)
+        {
+            if(umap[i])
             {
                 return false ;
             }
-      
-         
-            
         }
-     
-                return true ; 
-            
+        
+        return true ;
+        
+        
+        
+        
+        
     }
-    
-   
 };
+
+
+//https://www.youtube.com/watch?v=R3YtsyY3Rmw
 */
