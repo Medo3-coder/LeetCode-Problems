@@ -1,4 +1,7 @@
-// -------------- sol 1 single hash
+// -------------- sol 1 single hash   
+Using Unordered Map
+Time Complexity: O(N)
+Space Complexity: O(N)
 
 
 class Solution {
@@ -91,3 +94,51 @@ public:
         return s_map == t_map;
     }
 };
+
+
+/------------------------------------------------------------Using Frequency Array
+
+Time Complexity: O(N)
+Space Complexity: O(1), as we are taking 26 char arr, thats why it will be cosidered as a constant space
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        if(s == t)
+        {
+            return true ;
+        }
+        
+        if(s.size() != t.size())
+        {
+            return false ;
+        }
+    
+          int umap[26]={};
+        
+        for(int i = 0 ; i < s.size() ; i++)
+        {
+            umap[s[i] - 'a']++;   //  c - a = 2 - 0 = 2  like this 
+            umap[t[i] - 'a']--;
+        }
+        
+        for(int i = 0 ; i < 26 ; i++)
+        {
+            if(umap[i])
+            {
+                return false ;
+            }
+        }
+        
+        return true ;
+        
+        
+        
+        
+        
+    }
+};
+
+
+//https://www.youtube.com/watch?v=R3YtsyY3Rmw
