@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        
+        int ransomNoteSize = ransomNote.size() ;
+        int magazineSize   = magazine.size() ;
+        
+          vector<int> arr (26 , 0);
+        
+       // Traverse magazine and keep count of each letter in magazineHash
+        for(int i = 0 ; i < magazineSize ; i++)
+        {
+            arr[magazine[i] - 'a']++ ;
+        }
+        
+       // Now traverse ransomNote and keep decrementing count in magazineHash
+        
+        for(int i = 0 ; i < ransomNoteSize ; i++)
+        {
+            if(arr[ransomNote[i] - 'a'] <= 0)
+            {
+                return false ;
+            }
+            arr[ransomNote[i] - 'a']-- ;
+        }
+        
+        return true ;
+        
+    }
+};
