@@ -1,0 +1,92 @@
+
+
+APPROACH 1 BRUTE FORCE
+
+Iterate each row and column in search of target.
+If found return true or return false.
+Complexity Analysis
+
+Time Complexity: O(m*n)
+
+Space Complexity: O(1)
+
+//----------------------------------BRUTE FORCE-
+
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+		// running a forloop till size of matrix
+        for(int i  = 0; i<matrix.size(); ++i)
+        {
+		// nested for for ietrating each row element
+            for(int j = 0; j<matrix[0].size(); ++j)
+            {
+				// if found return true
+                if(matrix[i][j] == target)
+                    return true;
+            }
+        }
+		// after traversal if not found
+		// return false
+        return false;
+    }
+	
+};
+
+//---------------------------------------------------------------------APPROACH 2 BINARY SEARCH
+Time Complexity: O(log(m*n)) =O(log(m) + log(n))
+
+Space Complexity: O(1)
+
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        if(matrix.size() == 0)
+            return false ;
+        
+        int rows = matrix.size() ;   // n
+        int cols = matrix[0].size();  // m
+        
+        
+        // treating matrix as array just taking care of endices
+		// [0..n*m]
+        
+        int low = 0 ;
+        int high = rows * cols - 1 ;
+        while(low <= high)
+        {
+            int mid = low + (high - low) / 2 ;
+            // a[x] : matrix[x / m][x % m] formulae
+            int indices = matrix[mid / cols][mid % cols];
+            
+            if(target  == indices )
+            {
+                return true ;
+            }
+         
+            else if(target < indices)
+            {   // left half
+                 high = mid - 1;
+            }
+           
+            else
+            { // right half
+                low = mid + 1 ; 
+            }
+        }
+        
+        return false ;
+    }
+};
+
+//TC -> (n * m)
+//SC-> (1)
+
+
+//matrix[mid / m]   // row index
+
+
+//[mid % m];     // col index ;
