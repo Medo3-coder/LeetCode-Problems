@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        
+        if(!root)return true;
+        return isValidBSTHelper(root , -1e18 , 1e18 );
+    }
+    
+    
+    bool isValidBSTHelper(TreeNode* root , long long int  min , long long int  max )
+    {
+        if(!root)return true;
+        
+       if(root->val>=max || root->val<=min)return false;
+        
+    return isValidBSTHelper(root->left,min,root->val) and isValidBSTHelper(root->right,root->val,max);
+    }
+};
+
+//1e18 is double! It's just a typecast from double to long long int.
