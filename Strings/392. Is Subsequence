@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        
+        int count = 0 ;      // For index of str1 (or subsequence
+        int sizeS = s.size();
+        int sizeT = t.size();
+        
+         if(sizeS > sizeT)
+            return false;
+        
+    
+    // Traverse str2 and str1, and
+    // compare current character
+    // of str2 with first unmatched char
+    // of str1, if matched
+    // then move ahead in str1
+        
+        for(int i = 0 ; i < sizeT ; i++)
+        {
+            if(s[count] == t[i])
+                count++ ;
+        }
+        
+    
+        
+        return (count == s.size()) ;
+    }
+};
