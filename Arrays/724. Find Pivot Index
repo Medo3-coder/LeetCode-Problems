@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        
+        int sum = 0 ; int leftsum = 0 ;
+        int n = nums.size() ;
+        //calc total array 
+        for(int i = 0 ; i < n ; i++)
+        {
+            sum += nums[i];
+        }
+        
+        
+        for(int i = 0 ; i < n ; i++)
+        {
+            if(leftsum == (sum - nums[i] - leftsum))
+                return i ;                                     //Input: nums = [1,7,3,6,5,6]
+            leftsum += nums[i] ;             // update leftsum  0 = 0 + 1 = 1  and  1 + 7 = 8 and  8 + 3 = 11
+        }
+        
+        return -1;
+    }
+};
