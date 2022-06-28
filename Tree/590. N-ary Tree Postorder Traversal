@@ -1,0 +1,133 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+    }
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+public:
+    vector<int> postorder(Node* root) {
+        
+        vector<int> result ;
+        
+        postOrderTraversal(root , result) ;
+        
+        return result ;
+    }
+    
+    void postOrderTraversal(Node* root , vector<int> &result )
+    {
+        if(!root)
+            return ;
+        for( auto &child  : root->children)
+        {
+            postOrderTraversal(child , result );
+        }
+        result.push_back(root->val);
+    }
+};
+
+
+
+//------------------------------------
+
+
+class Solution {
+public:
+   vector<int> v;
+   vector<int> postorder(Node* root) {
+    
+    if(root==NULL) return v;
+       
+    for(int i=0;i<root->children.size();i++) postorder(root->children[i]);
+       
+    v.push_back(root->val);
+       
+    return v;
+    }
+};
+
+
+//---------------------------------------
+
+Intuition:
+Given the following tree
+image
+
+The idea is:
+
+When we encounter a node which has children, we check if it has been processed and if it has any children.
+If it has, then we push the value into the result vector and pop the stack.
+If not, we mark the current node as processed (with unordered_map) and we push its children from right to left into the stack.
+When we get to the left-most leaf in the tree, we push the value to the result vector and pop the stack.
+The reason with the unordered_mapis that when we push the nodes in a preorder fashion, we will encounter a node that we already have processed before and thus avoid pushing its children again. This is to avoid an endless loop.
+
+The best example is when we have pushed all nodes into the stack, the stack will look like this:
+
+ Result: []
+ Stack: [1,4,2,3,6,5
+We pop 5 and 6 as its a leaf node and add it to result.
+
+ Result: [5,6] // added node 5 and 6.
+ Stack: [1,4,2, // pop the stack!
+Now the top of the stack is 3 which has children of 5 and 6. But we have already processed this node, so we add it to the result and pop.
+
+ Result: [5,6,3] // added node 3 to the result.
+ Stack: [1,4,2 // pop stack
+Now the top of the stack is 2, which has children. We have not processed this node before so we mark it as processed in our unordered_map and push its children. In this case node 10.
+
+ Result: [5,6,3]
+ Stack: [1,4,2, 10 // We added node 2's children which is 10.
+Now we push 10 into our result and pop.
+
+ Result: [5,6,3, 10] // added 10 to result.
+ Stack: [1,4,2 // pop stack!
+Now we can see that node 2 has already been processed, we add it to the result and pop.
+
+ Result: [5,6,3, 10, 2] // added 2 to result.
+ Stack: [1,4 // pop stack!
+And so on....
+
+C++ solution
+
+	vector<int> postorder(Node* root) {
+        vector<int> result;
+        if(root == nullptr){
+            return result;
+        }
+        
+        stack<Node*> stk;
+        stk.push(root);
+        unordered_map<Node*, bool> map;
+        while(!stk.empty())
+        {
+            Node* current = stk.top();
+            if(current->children.size() > 0 && map[current] == false){
+                map[current] = true;
+                for(int i = current->children.size()-1; i >= 0; i--){
+                    stk.push(current->children[i]);
+                }
+            }
+            else{
+                result.push_back(current->val);
+                stk.pop();   
+            }
+        }
+        return result;
+    }
+Time Complexity: O(n^2) where n is the number of nodes in the tree.
+Space Complexity: O(n)
