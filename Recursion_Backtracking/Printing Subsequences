@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+using namespace std ;
+
+void printF(int index , vector<int> &ds , int arr[] , int n)
+{
+    if(index == n)
+    {
+        // print the vector 
+         for(auto it : ds)
+         {
+             cout<< it << " " ;
+         }
+         
+         if(ds.size() == 0)
+         {
+             cout<< "{}" ;
+         }
+         cout<<endl;
+         return ;
+    }
+    
+    // take or pick the particular index into the subsequence
+    ds.push_back(arr[index]); 
+    printF(index + 1 , ds , arr , n);
+    ds.pop_back();
+    
+    
+    // not pick, or not take condition, this elemnt is not added to your subsequence
+    printF(index + 1 , ds , arr , n);
+    
+}
+
+int main() {
+  
+  int arr[] = {3 , 1 , 2} ;
+  int n = 3 ;    // size of array ;
+  vector<int> ds ;  // to carry all subsequence 
+  printF(0 , ds , arr , n);
+
+    return 0;
+}
+
+
+
+//tc 2^n
+//sc n
+//https://www.youtube.com/watch?v=AxNNVECce8c&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=6
