@@ -35,3 +35,58 @@ public:
         return ans ;
     }
 };
+
+
+
+
+
+
+
+
+
+--------------------------------------------------other alogrithm ------------------------------------geeksforgeeks
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+private: 
+
+ void dfs(int row ,int col ,  vector<vector<int>>&ans ,vector<vector<int>>&image ,
+ int newColor, int delRow[] ,int delCol[] , int initColor )
+ {
+     ans[row][col] = newColor ;
+     int n = image.size();
+     int m = image[0].size();
+     
+     // there are exactly 4 neighbours
+     for(int i = 0 ; i < 4 ; i++)
+     {
+        int  nRow = row + delRow[i];
+        int  nCol = col + delCol[i];
+         
+       // check for valid coordinate 
+         if(nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && ans[nRow][nCol] != newColor &&
+         image[nRow][nCol] == initColor)
+         {
+             dfs(nRow , nCol , ans , image , newColor ,delRow , delCol ,  initColor);
+         }
+     }
+ }
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+         
+       // get initial color
+      int initColor = image[sr][sc];
+      vector<vector<int>> ans = image ;
+      // delta row and delta column for neighbours
+      int delRow[] = {-1 , 0 , 1 , 0};
+      int delCol[] = {0 , 1 , 0 , -1};
+      dfs(sr , sc , ans , image , newColor ,delRow , delCol ,  initColor);
+      return ans ;
+      
+          
+    }
+};
