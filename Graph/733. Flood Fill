@@ -1,0 +1,37 @@
+class Solution {
+private: 
+   void dfs(int row , int col , int color , int initColor ,
+    vector<vector<int>>& image ,  vector<vector<int>>&ans) 
+   {
+       //color with newColor 
+       ans[row][col] = color ;
+       int n = image.size();
+       int m = image[0].size();
+
+       //check for valid cordintes
+       for(int delRow = -1 ; delRow <= 1 ; delRow++)
+       {
+            for(int delCol = -1 ; delCol <= 1 ; delCol++)
+            {
+                if(abs(delRow) == abs(delCol)) {continue;}
+                int nRow = row + delRow;
+                int nCol = col + delCol;
+                // check for valid coordinate 
+                // then check for same initial color and unvisited pixel
+                if(nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && 
+                image[nRow][nCol] == initColor && ans[nRow][nCol] != color ){
+                    dfs(nRow , nCol ,  color , initColor , image , ans);
+                }
+            }
+       }
+   }
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        // get initial color
+        int initColor = image[sr][sc];
+        vector<vector<int>> ans = image ; 
+        
+        dfs(sr , sc , color , initColor , image , ans);
+        return ans ;
+    }
+};
